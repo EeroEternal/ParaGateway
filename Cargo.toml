@@ -1,0 +1,43 @@
+[package]
+name = "paragateway"
+version = "0.1.0"
+edition = "2021"
+authors = ["ParaGateway Team"]
+description = "Enterprise-grade LLM gateway control plane built on UniGateway"
+
+[dependencies]
+# Core Engine
+unigateway-sdk = { version = "2.1.0", features = ["host"] }
+
+# Web Framework
+axum = { version = "0.7", features = ["macros"] }
+tokio = { version = "1.0", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "fs", "trace", "set-header"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite", "chrono", "uuid"] }
+
+# Utilities
+anyhow = "1.0"
+thiserror = "2.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.0", features = ["v4", "serde"] }
+dotenvy = "0.15"
+async-trait = "0.1"
+futures-util = "0.3"
+dashmap = "6.0"
+sha2 = "0.10"
+hex = "0.4"
+
+# CLI
+clap = { version = "4.0", features = ["derive", "env"] }
+
+[dev-dependencies]
+reqwest = { version = "0.12", features = ["json"] }
