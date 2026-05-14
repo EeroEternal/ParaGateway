@@ -33,6 +33,9 @@ pub async fn run(config: Config) -> anyhow::Result<()> {
             .map_err(|e| anyhow::anyhow!("Failed to build UniGateway engine: {}", e))?
     );
     
+    // Perform initial configuration sync
+    crate::sync::sync_all_pools(&engine, &db).await?;
+    
     let app_state = Arc::new(AppState {
         config: config.clone(),
         db,

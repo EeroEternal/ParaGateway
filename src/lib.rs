@@ -5,6 +5,7 @@ pub mod db;
 pub mod models;
 pub mod routing;
 pub mod server;
+pub mod sync;
 pub mod usage;
 
 pub use config::Config;

@@ -72,6 +72,15 @@ async fn create_provider(
         .await
         .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, Json(ApiResponse::error("Database error"))))?;
 
+    let provider = sqlx::query_as::<_, ProviderAccount>("SELECT * FROM provider_accounts WHERE id = ?")
+        .bind(&id)
+        .fetch_one(&state.db)
+        .await
+        .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, Json(ApiResponse::error("Database error"))))?;
+
+    // Sync to engine
+    let _ = crate::sync::sync_all_pools(&state.engine, &state.db).await;
+
     Ok(Json(ApiResponse::success(provider)))
 }
 
@@ -114,6 +123,9 @@ async fn create_pool(
         .fetch_one(&state.db)
         .await
         .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, Json(ApiResponse::error("Database error"))))?;
+
+    // Sync to engine
+    let _ = crate::sync::sync_all_pools(&state.engine, &state.db).await;
 
     Ok(Json(ApiResponse::success(pool)))
 }
@@ -161,6 +173,9 @@ async fn create_endpoint(
         .await
         .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, Json(ApiResponse::error("Database error"))))?;
 
+    // Sync to engine
+    let _ = crate::sync::sync_all_pools(&state.engine, &state.db).await;
+
     Ok(Json(ApiResponse::success(endpoint)))
 }
 
@@ -204,6 +219,9 @@ async fn create_virtual_model(
         .await
         .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, Json(ApiResponse::error("Database error"))))?;
 
+    // Sync to engine
+    let _ = crate::sync::sync_all_pools(&state.engine, &state.db).await;
+
     Ok(Json(ApiResponse::success(model)))
 }
 
@@ -227,8 +245,12 @@ async fn bind_endpoint_to_pool(
         (StatusCode::INTERNAL_SERVER_ERROR, Json(ApiResponse::error("Database error")))
     })?;
 
+    // Sync to engine
+    let _ = crate::sync::sync_all_pools(&state.engine, &state.db).await;
+
     Ok(Json(ApiResponse::success(())))
 }
+
 
 async fn list_orgs(
     State(state): State<Arc<AppState>>,

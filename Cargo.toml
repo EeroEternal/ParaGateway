@@ -1,13 +1,13 @@
 [package]
 name = "paragateway"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["ParaGateway Team"]
 description = "Enterprise-grade LLM gateway control plane built on UniGateway"
 
 [dependencies]
 # Core Engine
-unigateway-sdk = { version = "2.1.0", features = ["host"] }
+unigateway-sdk = { version = "2.1.1", features = ["host"] }
 
 # Web Framework
 axum = { version = "0.7", features = ["macros"] }
