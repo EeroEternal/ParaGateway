@@ -12,6 +12,7 @@ use crate::api::models::{
     CreateOrgReq, CreateProjectReq, CreateApiKeyReq, ApiKeyResponse,
     BindEndpointToPoolReq, GrantModelToProjectReq
 };
+pub use crate::api::stats_handler::get_stats;
 
 pub fn admin_routes() -> Router<Arc<AppState>> {
     Router::new()
@@ -27,6 +28,8 @@ pub fn admin_routes() -> Router<Arc<AppState>> {
         .route("/projects", get(list_projects).post(create_project))
         .route("/projects/grant", post(grant_model_to_project))
         .route("/api-keys", get(list_api_keys).post(create_api_key))
+        // Statistics
+        .route("/stats", get(get_stats))
 }
 
 // Providers

@@ -5,6 +5,7 @@ import Select from './components/Select'
 import Providers from './pages/Providers'
 import Pools from './pages/Pools'
 import PoolDetails from './pages/PoolDetails'
+import AccessControl from './pages/access/AccessControl'
 
 const options = [
   { id: 1, name: 'Least Connections' },
@@ -95,12 +96,17 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/providers" element={<Providers />} />
-              <Route path="/pools" element={<Pools />} />
-              <Route path="/pools/:id" element={<PoolDetails />} />
-              <Route path="*" element={<div className="text-zinc-500">Under Construction</div>} />
-            </Routes>
-          </main>
-        </div>
+              import Statistics from './pages/stats/Statistics'
+
+              // ...
+                            <Route path="/pools" element={<Pools />} />
+                            <Route path="/pools/:id" element={<PoolDetails />} />
+                            <Route path="/access" element={<AccessControl />} />
+                            <Route path="/stats" element={<Statistics />} />
+                            <Route path="*" element={<div className="text-zinc-500">Under Construction</div>} />
+                          </Routes>
+                        </main>
+
       </div>
     </Router>
   )
