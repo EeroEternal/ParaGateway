@@ -46,7 +46,7 @@ pub async fn run(config: Config) -> anyhow::Result<()> {
     
     let app = Router::new()
         .route("/health", get(|| async { "OK" }))
-        .nest("/api/admin", crate::api::admin::admin_routes())
+        .nest("/api/admin", crate::api::admin::admin_routes(app_state.clone()))
         // OpenAI compatible chat endpoint
         .route("/v1/chat/completions", post(crate::api::proxy::chat_completions))
         .layer(TraceLayer::new_for_http())

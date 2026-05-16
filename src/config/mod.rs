@@ -10,6 +10,7 @@ use unigateway_sdk::core::UniGatewayEngine;
 pub struct Config {
     pub addr: SocketAddr,
     pub database_url: String,
+    pub admin_token: String,
 }
 
 #[derive(Clone)]
@@ -31,10 +32,14 @@ impl Config {
             
         let database_url = std::env::var("DATABASE_URL")
             .unwrap_or_else(|_| "sqlite:paragateway.db".to_string());
+            
+        let admin_token = std::env::var("ADMIN_TOKEN")
+            .expect("ADMIN_TOKEN must be set");
 
         Ok(Self {
             addr,
             database_url,
+            admin_token,
         })
     }
 }

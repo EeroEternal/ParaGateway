@@ -14,7 +14,7 @@ use crate::api::models::{
 };
 pub use crate::api::stats_handler::get_stats;
 
-pub fn admin_routes() -> Router<Arc<AppState>> {
+pub fn admin_routes(state: Arc<AppState>) -> Router<Arc<AppState>> {
     Router::new()
         // Resources
         .route("/providers", get(list_providers).post(create_provider))
@@ -30,6 +30,7 @@ pub fn admin_routes() -> Router<Arc<AppState>> {
         .route("/api-keys", get(list_api_keys).post(create_api_key))
         // Statistics
         .route("/stats", get(get_stats))
+        .route_layer(axum::middleware::from_fn_with_state(state, crate::auth::admin::admin_auth_middleware))
 }
 
 // Providers

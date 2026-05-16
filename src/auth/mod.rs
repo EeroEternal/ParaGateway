@@ -7,6 +7,8 @@ use std::sync::Arc;
 use crate::config::AppState;
 use crate::models::{Project, ApiKey};
 
+pub mod admin;
+
 #[derive(Debug, Clone)]
 pub struct AuthContext {
     pub project: Project,
