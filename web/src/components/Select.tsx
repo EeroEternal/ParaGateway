@@ -24,8 +24,8 @@ interface SelectProps {
 export default function Select({ label, options, selected, onChange, className }: SelectProps) {
   return (
     <div className={cn("w-full", className)}>
-      {label && <Listbox.Label className="block text-sm font-medium text-zinc-700 mb-1">{label}</Listbox.Label>}
       <Listbox value={selected} onChange={onChange}>
+        {label && <Listbox.Label className="block text-sm font-medium text-zinc-700 mb-1">{label}</Listbox.Label>}
         <div className="relative mt-1">
           <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-2 pl-3 pr-10 text-left border border-zinc-300 focus:outline-none focus:ring-1 focus:ring-black focus:border-black sm:text-sm transition-colors">
             <span className="block truncate text-zinc-900">{selected.name}</span>

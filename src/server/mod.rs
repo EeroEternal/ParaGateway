@@ -45,6 +45,7 @@ pub async fn run(config: Config) -> anyhow::Result<()> {
     });
     
     let app = Router::new()
+        .route("/", get(|| async { "ParaGateway API is running. Please use the Admin UI at http://localhost:18764" }))
         .route("/health", get(|| async { "OK" }))
         .nest("/api/admin", crate::api::admin::admin_routes(app_state.clone()))
         // OpenAI compatible chat endpoint
